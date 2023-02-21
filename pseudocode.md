@@ -31,7 +31,7 @@
  - (instead or 2 player symbols just use playersTurn to keep track of whos active turn)
  - Winconditons = array of arrays that match wincons??
  - [1, 0, 0, 1, 0, 0, 1, 0, 0] would be left column win (1 wincon of 8 total(3 column wins,3 row wins , and two diagonal wins))
- - picture array like BELOW to help visualize 
+ - picture array like BELOW to help visualize   
  `[0, 0, 0,  
    0, 0, 0,  
    0, 0, 0]  
