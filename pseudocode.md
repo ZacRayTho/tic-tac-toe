@@ -98,6 +98,7 @@
 - check for win condition
 - make tiles clickable
 - not allow tiles to be click twice
+- reset button that doesnt refresh page
 ### SHOULD
 - let players know whos turn it is
 - not hardcode allwin cons, prefer loop
