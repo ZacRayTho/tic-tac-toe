@@ -30,7 +30,10 @@
  - player2 symbol
  - (instead or 2 player symbols just use playersTurn to keep track of whos active turn)
  - Winconditons = array of arrays that match wincons??
- - [1, 0, 0, 1, 0, 0, 1, 0, 0] would be left column win (1 wincon of 8 total(3 column wins,3 row wins , and two diagonal wins))
+ - DOESN'T WORK ,UNLESS BOARD ARRAY IS EXACT(NOT POSSIBLE)[1, 0, 0, 1, 0, 0, 1, 0, 0] would be left column win (1 wincon of 8 total(3 column wins,3 row wins , and two diagonal wins))
+ - if x clicks tile ,board array = 1 ,if o does,board array = 2  
+ - check positions of board array [0,3,6] for left column  
+ - if board array[0] + array[3] + array[6] = 3, "X" wins ,if it equals 6 "O" wins, no way any combination of 1's and 2's can equal either  
  - picture array like BELOW to help visualize   
  `[0, 0, 0,  
    0, 0, 0,  
@@ -94,14 +97,14 @@
 ## MoSCoW
 
 ### MUST
-- allow players to place marker
+- allow players to place marker( done)  
 - check for win condition
-- make tiles clickable
-- not allow tiles to be click twice
+- make tiles clickable (done)  
+- not allow tiles to be click twice (done)  
 - reset button that doesnt refresh page
 ### SHOULD
 - let players know whos turn it is
-- not hardcode allwin cons, prefer loop
+- not hardcode all win cons, prefer loop
 ### COULD
 - stretch goals
 - tiles darken or bounce on hover?
