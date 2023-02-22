@@ -1,4 +1,5 @@
 ## questions
+-what did andrew use for his Xs n Os???
 - how to allow only one button click per tile
 - how to check for 3 in a row (horizontal/vertical/diagonal)
 - what will board state look like
