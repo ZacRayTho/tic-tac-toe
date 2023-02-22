@@ -1,18 +1,15 @@
+//Only div I can append to
 const app = document.getElementById("app");
+
+//state object to hold value and change the board
 let state = {
-    active: true,
+    
     playerTurn: "x",
     board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    wins: [[1, 0, 0, 1, 0, 0, 1, 0, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 0],
-    [0, 0, 1, 0, 0, 1, 0, 0, 1],
-    [1, 1, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 0, 1, 0, 0, 0, 1],
-    [0, 0, 1, 0, 1, 0, 1, 0, 0]]
+    
 }
 
+//let players decide what marker they want to be then calls init() when one is chose
 function who() {
     let q = document.createElement("div");
     q.className = "text-center"
@@ -38,6 +35,7 @@ function who() {
 
 }
 
+//makes the board and gives tiles the eventListeners that change the state.board and tiles innerHTML
 function init(marker) {
     app.innerHTML = "";
     state.playerTurn = marker;
@@ -59,13 +57,17 @@ function init(marker) {
                 img.src = "./img/x.png";
                 tile.appendChild(img);
                 state.board[tile.id] = 1;
+                state.playerTurn = "o"
+                checkWin()
             }
             else if (state.playerTurn == "o" && state.board[tile.id] == 0) {
                 let img =  document.createElement("img");
                 img.src = "./img/o.png";
                 img.style.height = "128px"
                 tile.appendChild(img);
-                state.board[tile.id] = 1;
+                state.board[tile.id] = -1;
+                state.playerTurn = "x"
+                checkWin()
             }
             
         })
@@ -73,8 +75,64 @@ function init(marker) {
     }
 }
 
+
+//function to check who wins 
 function checkWin() {
-    console.log(state.wins.some(a => a.toString() == state.board.toString()));
-    //doesnt work because state.wins cant handle  not a straight victory which isnt possible
+    // console.log(state.wins.some(a => a.toString() == state.board.toString()));
+    // doesn't work because state.wins cant handle  not a straight victory which isn't possible
+
+    //check all columns possibilities
+    for (let i = 0; i < 3; i++) {
+        if (state.board[i] + state.board[i + 3] + state.board[i + 6] == 3) {
+            console.log("X wins")
+            winner()
+        }
+        if (state.board[i] + state.board[i + 3] + state.board[i + 6] == -3) {
+            console.log("O wins")
+            winner()
+        }
+    }
+
+    //check all row possibilities 
+    for (let i = 0; i < 9; i += 3) {
+        if (state.board[i] + state.board[i + 1] + state.board[i + 2] == 3) {
+            console.log("X wins")
+            winner()
+        }
+        if (state.board[i] + state.board[i + 1] + state.board[i + 2] == -3) {
+            console.log("O wins")
+            winner()
+        }
+    }
+
+    //check diagonal possibilities
+    if (state.board[0] + state.board[4] + state.board[8] == 3) {
+        console.log("X wins")
+        winner()
+    }
+    if (state.board[0] + state.board[4] + state.board[8] == -3) {
+        console.log("O wins")
+        winner()
+    }
+    if (state.board[2] + state.board[4] + state.board[6] == 3) {
+        console.log("X wins")
+        winner()
+    }
+    if (state.board[2] + state.board[4] + state.board[6] == -3) {
+        console.log("O wins")
+        winner()
+    }
+
+    //check if board is full
+    if (state.board.every(e => e != 0)) {
+        console.log("TIE")
+        winner()
+    }
+    
+
+}
+
+function winner() {
+    state.board.fill(2)
 }
 who()
