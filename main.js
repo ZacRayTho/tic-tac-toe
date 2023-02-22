@@ -3,14 +3,13 @@ const app = document.getElementById("app");
 
 //state object to hold value and change the board
 let state = {
-    
     playerTurn: "x",
-    board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    
+    board: [0, 0, 0, 0, 0, 0, 0, 0, 0], 
 }
 
 //let players decide what marker they want to be then calls init() when one is chose
 function who() {
+    state.board.fill(0)
     let q = document.createElement("div");
     q.className = "text-center"
     let header = document.createElement("h1");
@@ -48,13 +47,15 @@ function init(marker) {
     app.append(row);
     for (let i = 0; i < 9; i++) {
         let tile = document.createElement("div");
-        tile.className = "col-4 border text-center";
+        tile.className = "col-4 border text-center d-flex align-items-center";
         tile.style = "background-color: grey; min-height: 130px;"
         tile.id = i;
         tile.addEventListener("click", ()=> {
             if (state.playerTurn == "x" && state.board[tile.id] == 0) {
                 let img =  document.createElement("img");
                 img.src = "./img/x.png";
+                img.style.height = "80%"
+                img.style.width = "100%"
                 tile.appendChild(img);
                 state.board[tile.id] = 1;
                 state.playerTurn = "o"
@@ -63,7 +64,8 @@ function init(marker) {
             else if (state.playerTurn == "o" && state.board[tile.id] == 0) {
                 let img =  document.createElement("img");
                 img.src = "./img/o.png";
-                img.style.height = "128px"
+                img.style.height = "80%"
+                img.style.width = "100%"
                 tile.appendChild(img);
                 state.board[tile.id] = -1;
                 state.playerTurn = "x"
@@ -73,6 +75,8 @@ function init(marker) {
         })
         row.append(tile)
     }
+    
+    
 }
 
 
@@ -85,11 +89,13 @@ function checkWin() {
     for (let i = 0; i < 3; i++) {
         if (state.board[i] + state.board[i + 3] + state.board[i + 6] == 3) {
             console.log("X wins")
-            winner()
+            winner("X")
+            return;
         }
         if (state.board[i] + state.board[i + 3] + state.board[i + 6] == -3) {
             console.log("O wins")
-            winner()
+            winner("O")
+            return;
         }
     }
 
@@ -97,42 +103,60 @@ function checkWin() {
     for (let i = 0; i < 9; i += 3) {
         if (state.board[i] + state.board[i + 1] + state.board[i + 2] == 3) {
             console.log("X wins")
-            winner()
+            winner("X")
+            return;
         }
         if (state.board[i] + state.board[i + 1] + state.board[i + 2] == -3) {
             console.log("O wins")
-            winner()
+            winner("O")
+            return;
         }
     }
 
     //check diagonal possibilities
     if (state.board[0] + state.board[4] + state.board[8] == 3) {
         console.log("X wins")
-        winner()
+        winner("X")
+        return;
     }
     if (state.board[0] + state.board[4] + state.board[8] == -3) {
         console.log("O wins")
-        winner()
+        winner("O")
+        return;
     }
     if (state.board[2] + state.board[4] + state.board[6] == 3) {
         console.log("X wins")
-        winner()
+        winner("X")
+        return;
     }
     if (state.board[2] + state.board[4] + state.board[6] == -3) {
         console.log("O wins")
-        winner()
+        winner("O")
+        return;
     }
 
     //check if board is full
     if (state.board.every(e => e != 0)) {
         console.log("TIE")
-        winner()
+        winner("The cat")
     }
     
 
 }
 
-function winner() {
+//if checkWin() finds 3 in row ,
+function winner(marker) {
     state.board.fill(2)
+    let win = document.createElement("div");
+    win.className = "text-center fs-1"
+    win.innerHTML = marker + " wins! <br>"
+    app.append(win)
+    let restart = document.createElement("button");
+    restart.innerHTML = "Reset Game?"
+    restart.addEventListener("click", ()=> {
+        app.innerHTML = ""
+        who()
+    })
+    win.appendChild(restart)
 }
 who()
