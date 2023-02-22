@@ -48,7 +48,7 @@ function init(marker) {
     for (let i = 0; i < 9; i++) {
         let tile = document.createElement("div");
         tile.className = "col-4 border text-center d-flex align-items-center";
-        tile.style = "background-color: grey; min-height: 130px;"
+        tile.style = "background-color: grey; min-height: 200px;"
         tile.id = i;
         tile.addEventListener("click", ()=> {
             if (state.playerTurn == "x" && state.board[tile.id] == 0) {
