@@ -1,13 +1,13 @@
 //Model
-class gameData {
-    //every class has to have a constructor() method?? 
+class GameData {
+    //every class has to have a constructor() method?? (according to w3schools)
     //constructor method automatically called when new object is created
     //constructor is used to initialize object properties
     constructor() {
         //board state
-        board = ["", "", "", "", "", "", "", "", ""]
+        let board = ["", "", "", "", "", "", "", "", ""]
         //evens turns will be Xs ,odds will be Os
-        turnNum = 0
+        let turnNum = 0
     }
 
 
@@ -16,26 +16,45 @@ class gameData {
 //View
 class gameView {
     constructor() {
-        app = document.getElementById("app")
-        this.elementMake("div", "row", "", "", )
+        //grab only div available
+        this.app = document.getElementById("app");
+        //create row that I plan to append 9 col-4 to for tiles
+        this.elementMake("div", "row", "", "", "", this.app, "")
+        this.row = document.getElementsByClassName("row");
+        for (let i = 0; i < 9; i++) {
+        this.elementMake("div", "col-4", "", i, gameController.clickMe, this.row[0], "")
+        }
     }
 
     //when passing in event don't include parentheses
-    elementMake(element, className, style, id, event, parent, content) {
-        let element = document.createElement(element);
-        element.className = className;
-        element.style = style;
-        element.id = id;
-        element.onclick = event;
-        element.innerHTML = content;
-        parent.appendChild(element);
+    elementMake(elly, className, style, id, event, parent, content) {
+        // this.par = document.querySelector(parent)
+        this.ellie = document.createElement(elly);
+        this.ellie.className = className;
+        this.ellie.style = style;
+        this.ellie.id = id;
+        this.ellie.onclick = event;
+        this.ellie.innerHTML = content;
+        parent.append(this.ellie);
     }
 }
 
-//Controller
+//Controller/ the brains???
+//possible just the event on tile click? 9 gameControllers?
+
 class gameController {
-    constructor () {
+    constructor (x) {
+        //value will be x or o 
+        this.value = ""
+        //id will depend on tile location
+        this.id = x
+    }
+
+    clickMe(id) {
 
     }
-    
+
 }
+console.log("hello")
+let game = new GameData();
+let gameCon = new gameController();
