@@ -48,7 +48,7 @@ function init(marker) {
     for (let i = 0; i < 9; i++) {
         let tile = document.createElement("div");
         tile.className = "col-4 border text-center d-flex align-items-center";
-        tile.style = "background-color: grey; min-height: 130px;"
+        tile.style = "background-color: grey; min-height: 200px;"
         tile.id = i;
         tile.addEventListener("click", ()=> {
             if (state.playerTurn == "x" && state.board[tile.id] == 0) {
@@ -82,58 +82,83 @@ function init(marker) {
 
 //function to check who wins 
 function checkWin() {
+    let winCons = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
+
+    for (let i = 0; i < winCons.length; i++){
+        let sum = 0;
+        for (let j = 0; j < winCons[i].length; j++) {
+            sum += state.board[winCons[i][j]]
+            if (sum == 3) {
+                winner("X")
+                return;
+            }
+            else if (sum == -3) {
+                winner("O")
+                return
+            }
+        }
+    }
     // console.log(state.wins.some(a => a.toString() == state.board.toString()));
     // doesn't work because state.wins cant handle  not a straight victory which isn't possible
 
     //check all columns possibilities
-    for (let i = 0; i < 3; i++) {
-        if (state.board[i] + state.board[i + 3] + state.board[i + 6] == 3) {
-            console.log("X wins")
-            winner("X")
-            return;
-        }
-        if (state.board[i] + state.board[i + 3] + state.board[i + 6] == -3) {
-            console.log("O wins")
-            winner("O")
-            return;
-        }
-    }
+    // for (let i = 0; i < 3; i++) {
+    //     if (state.board[i] + state.board[i + 3] + state.board[i + 6] == 3) {
+    //         console.log("X wins")
+    //         winner("X")
+    //         return;
+    //     }
+    //     if (state.board[i] + state.board[i + 3] + state.board[i + 6] == -3) {
+    //         console.log("O wins")
+    //         winner("O")
+    //         return;
+    //     }
+    // }
 
-    //check all row possibilities 
-    for (let i = 0; i < 9; i += 3) {
-        if (state.board[i] + state.board[i + 1] + state.board[i + 2] == 3) {
-            console.log("X wins")
-            winner("X")
-            return;
-        }
-        if (state.board[i] + state.board[i + 1] + state.board[i + 2] == -3) {
-            console.log("O wins")
-            winner("O")
-            return;
-        }
-    }
+    // //check all row possibilities 
+    // for (let i = 0; i < 9; i += 3) {
+    //     if (state.board[i] + state.board[i + 1] + state.board[i + 2] == 3) {
+    //         console.log("X wins")
+    //         winner("X")
+    //         return;
+    //     }
+    //     if (state.board[i] + state.board[i + 1] + state.board[i + 2] == -3) {
+    //         console.log("O wins")
+    //         winner("O")
+    //         return;
+    //     }
+    // }
 
-    //check diagonal possibilities
-    if (state.board[0] + state.board[4] + state.board[8] == 3) {
-        console.log("X wins")
-        winner("X")
-        return;
-    }
-    if (state.board[0] + state.board[4] + state.board[8] == -3) {
-        console.log("O wins")
-        winner("O")
-        return;
-    }
-    if (state.board[2] + state.board[4] + state.board[6] == 3) {
-        console.log("X wins")
-        winner("X")
-        return;
-    }
-    if (state.board[2] + state.board[4] + state.board[6] == -3) {
-        console.log("O wins")
-        winner("O")
-        return;
-    }
+    // //check diagonal possibilities
+    // if (state.board[0] + state.board[4] + state.board[8] == 3) {
+    //     console.log("X wins")
+    //     winner("X")
+    //     return;
+    // }
+    // if (state.board[0] + state.board[4] + state.board[8] == -3) {
+    //     console.log("O wins")
+    //     winner("O")
+    //     return;
+    // }
+    // if (state.board[2] + state.board[4] + state.board[6] == 3) {
+    //     console.log("X wins")
+    //     winner("X")
+    //     return;
+    // }
+    // if (state.board[2] + state.board[4] + state.board[6] == -3) {
+    //     console.log("O wins")
+    //     winner("O")
+    //     return;
+    // }
 
     //check if board is full
     if (state.board.every(e => e != 0)) {
