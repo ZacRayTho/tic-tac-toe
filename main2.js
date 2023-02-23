@@ -5,9 +5,10 @@ class GameData {
     //constructor is used to initialize object properties
     constructor() {
         //board state
-        let board = ["", "", "", "", "", "", "", "", ""]
+        this.board = ["", "", "", "", "", "", "", "", ""]
         //evens turns will be Xs ,odds will be Os
-        let turnNum = 0
+        this.turnNum = 0
+        this.gridArray = [];
     }
 
 
@@ -43,12 +44,12 @@ class gameView {
 //possible just the event on tile click? 9 gameControllers?
 
 class gameController {
-    constructor (x) {
-        //value will be x or o 
-        this.value = ""
-        //id will depend on tile location
-        this.id = x
-    }
+    // constructor (x) {
+    //     //value will be x or o 
+    //     this.value = ""
+    //     //id will depend on tile location
+    //     this.id = x
+    // }
 
     clickMe(id) {
 
