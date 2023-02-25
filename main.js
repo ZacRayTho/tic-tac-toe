@@ -43,7 +43,7 @@ function init(marker) {
     header.className = "col-12 text-center";
     app.append(header);
     let row = document.createElement("div");
-    row.className = "row h-50 w-50 mx-auto "
+    row.className = "row h-50  mx-auto "
     app.append(row);
     for (let i = 0; i < 9; i++) {
         let tile = document.createElement("div");
